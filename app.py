@@ -1,7 +1,6 @@
-from flask import Flask, request, send_file, redirect
+from flask import Flask, request, send_file, redirect, send_from_directory
 import db
 import dbexport
-
 
 flask_app = Flask(__name__)
 
@@ -61,6 +60,9 @@ def download():
     #Return submissions .zip file and redirect to index
     return send_file('submissions.zip', as_attachment=True)
 
+@flask_app.route('/favicon.ico')
+def favicon():
+    return flask_app.send_static_file('favicon.ico')
 
 #Make any 500 error show contact info
 @flask_app.errorhandler(500)
