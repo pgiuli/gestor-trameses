@@ -15,7 +15,10 @@ def enviament():
         save_status = db.save_submission(user, password, task, code)
         print(save_status)
         return f'''
+            <head>
+            <title>Tramesa</title>
             <link rel="stylesheet" type="text/css" href="/static/styles.css">
+            </head>
             <h1>Estat de la tramesa: {save_status}</h1>
             <a href="/">Torna</a>
             '''
@@ -24,7 +27,10 @@ def enviament():
         tasks = db.get_tasks()
         options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks) #Get taskid and task name from tasks
         return f'''
-             <link rel="stylesheet" type="text/css" href="/static/styles.css">
+            <head>
+                <title>Envia una Tramesa</title>
+                <link rel="stylesheet" type="text/css" href="/static/styles.css">
+            </head>
             <form method="POST">
                 Usuari: <input type="text" name="user"><br>
                 Contrasenya: <input type="password" name="password"><br>
@@ -41,6 +47,7 @@ def index():
     return """
         <html>
             <head>
+                <title>Trameses - Giuli</title>
                 <link rel="stylesheet" type="text/css" href="/static/styles.css">
             </head>
             <body>
@@ -70,6 +77,7 @@ def server_error(e):
     return """
         <html>
             <head>
+                <title>500 Error</title>
                 <link rel="stylesheet" type="text/css" href="/static/styles.css">
             </head>
             <body>
