@@ -12,7 +12,8 @@ while True:
     7. Create user
     8. Delete user
     9. List users
-    10. Exit
+    10. Get submitted tasks
+    11. Exit
     
     ''')
     match option:
@@ -24,7 +25,7 @@ while True:
             db.add_task(taskid, description)
         case '3':
             taskid = input('Identificador: ')
-            db.delete_task(id)
+            db.delete_task(taskid)
         case '4':
             tasks = db.get_tasks()
             for task in tasks:
@@ -47,6 +48,11 @@ while True:
             for user in users:
                 print(f'{user[0]}')
         case '10':
+            user = input('Usuari: ')
+            tasks = db.get_submitted_tasks(user)
+            for task in tasks:
+                print(f'{task[0]}')
+        case '11':
             exit()
         case _:
             print('Opció incorrecta')

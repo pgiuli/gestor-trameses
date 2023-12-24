@@ -44,9 +44,10 @@ def save_submission(user, password, taskid, response):
         return 'Tramesa enviada satisfactòriament!'
 
 def get_submitted_tasks(user):
+    #Get all submitted taskid by user
     conn = sqlite3.connect('trameses.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM trameses WHERE name=?", (user,))
+    c.execute("SELECT taskid FROM trameses WHERE user=?", (user,))
     tasks = c.fetchall()
     conn.close()
     return tasks
@@ -73,10 +74,10 @@ def add_task(taskid, name):
     conn.commit()
     conn.close()
 
-def delete_task(id):
+def delete_task(taskid):
     conn = sqlite3.connect('trameses.db')
     c = conn.cursor()
-    c.execute("DELETE FROM tasks WHERE name=?", (id,))
+    c.execute("DELETE FROM tasks WHERE taskid=?", (taskid,))
     conn.commit()
     conn.close()
 
