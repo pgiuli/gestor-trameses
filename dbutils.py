@@ -1,11 +1,3 @@
-#Create a menu to manage the database
-# 1. Create database
-# 2. Add task
-# 3. Delete task
-# 4. List task
-# 5. Export submissions
-# 6. Exit
-
 import db
 import dbexport
 
