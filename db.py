@@ -11,7 +11,7 @@ def create_database():
         (taskid text, name text)''')
     # Create table for users
     c.execute('''CREATE TABLE IF NOT EXISTS users
-        (user text, password text)''')
+        (user text, password text, displayname text)''')
     conn.commit()
     conn.close()
 
@@ -89,7 +89,7 @@ def get_users():
     conn.close()
     return users
 
-def add_user(user, password):
+def add_user(user, password, displayname):
     # Check if user exists
     conn = sqlite3.connect('trameses.db')
     c = conn.cursor()
@@ -98,7 +98,7 @@ def add_user(user, password):
     if testuser is not None:
         return 'Usuari ja existent'
     # Save user
-    c.execute("INSERT INTO users VALUES (?, ?)", (user, password))
+    c.execute("INSERT INTO users VALUES (?, ?, ?)", (user, password, displayname))
     conn.commit()
     conn.close()
 
@@ -109,6 +109,19 @@ def delete_user(user):
     conn.commit()
     conn.close()
 
+def delete_all_submissions():
+    conn = sqlite3.connect('trameses.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM trameses")
+    conn.commit()
+    conn.close()
+
+def delete_all_users():
+    conn = sqlite3.connect('trameses.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM users")
+    conn.commit()
+    conn.close()
 
 def add_test_tasks():
     add_task('introduccio', 'Introducció')
@@ -117,4 +130,3 @@ def add_test_tasks():
 
 if __name__ == '__main__':
     create_database()
-    add_test_tasks()

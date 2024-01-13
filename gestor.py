@@ -10,8 +10,15 @@ def enviament():
         print('Saving Submission')
         user = request.form.get('user')
         task = request.form.get('task')
-        code = request.form.get('code')
         password = request.form.get('password')
+
+        # Handle file upload
+        code_file = request.files['code']
+        if code_file and code_file.filename.endswith('.py'):
+            code = code_file.read().decode('utf-8')
+        else:
+            return 'Invalid file type. Only .py files are allowed.'
+
         save_status = db.save_submission(user, password, task, code)
         print(save_status)
         return f'''
@@ -24,8 +31,10 @@ def enviament():
             '''
     else:
         tasks = db.get_tasks()
+        users = db.get_users()
+        userlist = ''.join(f'<option value="{user[0]}">{user[2]}</option>' for user in users)
         options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks)
-        return render_template('enviament.html', options=options)
+        return render_template('enviament.html', options=options, userlist=userlist)
 
 @website.route('/')
 def index():

@@ -5,13 +5,15 @@
     </head>
     <body>
         <h1>Gestor de trameses de Programació i Robòtica</h1>
-        <form method="POST">
-            Usuari: <input type="text" name="user"><br>
+        <form method="POST" enctype="multipart/form-data">
+            Usuari: <select name="user">
+                {{ userlist|safe }}
+            </select><br>
             Contrasenya: <input type="password" name="password"><br>
             Tasca: <select name="task">
                 {{ options|safe }}
             </select><br>
-            Codi: <textarea name="code"></textarea><br>
+            Codi: <input type="file" name="code" accept=".py"><br>
             <input type="submit" value="Submit">
         </form>
     </body>
