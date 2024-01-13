@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Trameses - Giuli</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    </head>
+    <body>
+        <head>
+            <title>Envia una Tramesa</title>
+            <link rel="stylesheet" type="text/css" href="/static/styles.css">
+        </head>
+        <form method="POST">
+            Usuari: <input type="text" name="user"><br>
+            Contrasenya: <input type="password" name="password"><br>
+            Tasca: <select name="task">
+                {{ options|safe }}
+            </select><br>
+            Codi: <textarea name="code"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
