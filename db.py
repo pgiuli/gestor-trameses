@@ -128,5 +128,6 @@ def add_test_tasks():
     add_task('funcions', 'Funcions')
     add_task('final', 'Tramesa final')
 
+
 if __name__ == '__main__':
     create_database()

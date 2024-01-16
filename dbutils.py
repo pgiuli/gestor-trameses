@@ -14,7 +14,8 @@ options = {
     '10': 'Get submitted tasks',
     '11': 'Delete all submissions',
     '12': 'Delete all users',
-    '13': 'Exit'
+    '13': 'Get all submitted tasks by user',
+    '14': 'Exit'
 }
 
 while True:
@@ -64,6 +65,10 @@ while True:
         case '12':
             db.delete_all_users()
         case '13':
+            for user in db.get_users():
+                tasks = db.get_submitted_tasks(user[0])
+                print(f'{user[0]}: {tasks}')
+        case '14':
             exit()
         case _:
             print('Opció incorrecta')

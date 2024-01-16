@@ -36,6 +36,25 @@ def enviament():
         options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks)
         return render_template('enviament.html', options=options, userlist=userlist)
 
+@website.route('/estat')
+def estat():
+    tasks = db.get_tasks()
+    users = db.get_users()
+    user_task_status = []
+
+    for user in users:
+        user_status = {'user': user[2]}  # Use the display name directly from the user tuple
+        for task in tasks:
+            submitted_tasks = db.get_submitted_tasks(user[0])
+            if task[0] in [t[0] for t in submitted_tasks]:
+                user_status[task[1]] = "✅"  # Green emoji for submitted task
+            else:
+                user_status[task[1]] = "❌"  # Red emoji for not submitted task
+        user_task_status.append(user_status)
+
+    return render_template('estat.html', tasks=[task[1] for task in tasks], user_task_status=user_task_status)
+
+
 @website.route('/')
 def index():
     return render_template('index.html')
