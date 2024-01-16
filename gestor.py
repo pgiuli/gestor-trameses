@@ -54,6 +54,21 @@ def estat():
 
     return render_template('estat.html', tasks=[task[1] for task in tasks], user_task_status=user_task_status)
 
+@website.route('/consulta', methods=['GET', 'POST'])
+def consulta():
+    if request.method == 'GET':
+        tasks = db.get_tasks()
+        users = db.get_users()
+        userlist = ''.join(f'<option value="{user[0]}">{user[2]}</option>' for user in users)
+        options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks)
+        return render_template('consulta_form.html', options=options, userlist=userlist)
+    else: #POST
+        user = request.form.get('user')
+        task = request.form.get('task')
+        password = request.form.get('password')
+        print(user, task, password)
+        status, code = db.get_submission(user, password, task)
+        return render_template('consulta_result.html', status=status, code=code)
 
 @website.route('/')
 def index():

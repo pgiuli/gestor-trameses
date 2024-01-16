@@ -19,6 +19,7 @@ body {
     background-color: #333;
     color: #fff;
     font-size: 1.8vh;
+    
 }
 
 table {
@@ -64,4 +65,24 @@ input[type="submit"] {
 }
 input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+.codebox {
+    width: 50%;
+    margin: 10px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: none;
+    
+}
+
+pre {
+    text-align: left;
+    background-color: #111;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-family: monospace;
+    font-size: smaller;
 }

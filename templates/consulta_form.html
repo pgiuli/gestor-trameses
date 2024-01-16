@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Consulta una Tramesa</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    </head>
+    <body>
+        <h1>Gestor de trameses de Programació i Robòtica</h1>
+        <form method="POST" enctype="multipart/form-data">
+            Usuari: <select name="user">
+                {{ userlist|safe }}
+            </select><br>
+            Contrasenya: <input type="password" name="password"><br>
+            Tasca: <select name="task">
+                {{ options|safe }}
+            </select><br>
+            <input class="button" type="submit" value="Consulta">
+        </form>
+    </body>
+</html>

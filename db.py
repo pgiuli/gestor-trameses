@@ -43,6 +43,24 @@ def save_submission(user, password, taskid, response):
         conn.close()
         return 'Tramesa enviada satisfactòriament!'
 
+def get_submission(user, password, taskid):
+    # Check if user exists and password is correct
+    conn = sqlite3.connect('trameses.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE user=?", (user,))
+    user = c.fetchone()
+    if user is None:
+        return 'Usuari no trobat', None
+    if password != user[1]:
+        return 'Contrasenya incorrecta', None
+    # Get submission
+    c.execute("SELECT response FROM trameses WHERE user=? AND taskid=?", (user[0], taskid))
+    submission = c.fetchone()
+    if submission is None:
+        return 'Tramesa no trobada', None
+    else:
+        return "Consulta completada satisfactòriament", submission[0]
+
 def get_submitted_tasks(user):
     #Get all submitted taskid by user
     conn = sqlite3.connect('trameses.db')
