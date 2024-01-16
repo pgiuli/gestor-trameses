@@ -17,10 +17,16 @@ def enviament():
         if code_file and code_file.filename.endswith('.py'):
             code = code_file.read().decode('utf-8')
         else:
-            return 'Invalid file type. Only .py files are allowed.'
+            return '''
+            <head>
+            <title>Tramesa</title>
+            <link rel="stylesheet" type="text/css" href="/static/styles.css">
+            </head>
+            <h1>Estat de la tramesa: Format de l'arxiu incorrecte, revisa que acabi en .py</h1>
+            <a href="/">Torna</a>
+            '''
 
         save_status = db.save_submission(user, password, task, code)
-        print(save_status)
         return f'''
             <head>
             <title>Tramesa</title>
