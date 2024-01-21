@@ -7,7 +7,6 @@ website = Flask(__name__)
 @website.route('/enviament', methods=['GET', 'POST'])
 def enviament():
     if request.method == 'POST':
-        print('Saving Submission')
         user = request.form.get('user')
         task = request.form.get('task')
         password = request.form.get('password')
@@ -72,7 +71,6 @@ def consulta():
         user = request.form.get('user')
         task = request.form.get('task')
         password = request.form.get('password')
-        print(user, task, password)
         status, code = db.get_submission(user, password, task)
         return render_template('consulta_result.html', status=status, code=code)
 
