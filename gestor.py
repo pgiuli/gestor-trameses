@@ -1,16 +1,19 @@
 from flask import Flask, request, send_file, redirect, send_from_directory, render_template
+from werkzeug.exceptions import RequestEntityTooLarge
 import db
 import dbexport
 
 website = Flask(__name__)
+
+# Set max file size
+website.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
 
 @website.route('/enviament', methods=['GET', 'POST'])
 def enviament():
     if request.method == 'POST':
         user = request.form.get('user')
         task = request.form.get('task')
-        password = request.form.get('password')
-
+        password = request.form.get('password') 
         # Handle file upload
         code_file = request.files['code']
         if code_file and code_file.filename.endswith('.py'):
@@ -150,6 +153,9 @@ def server_error(e):
 def page_not_found(e):
     return redirect('/')
 
+@website.errorhandler(RequestEntityTooLarge)
+def handle_file_size_exceeded(e):
+    return redirect('https://youtu.be/dQw4w9WgXcQ')
 
 if __name__ == '__main__':
     website.run(debug=True)
