@@ -1,17 +1,9 @@
-h1 {
+h1, h2, h3 {
     color: #4CAF50;
     text-align: center;
+    line-height:0%;
 }
 
-h2 {
-    color: #4CAF50;
-    text-align: center;
-}
-
-h3 {
-    color: #4CAF50;
-    text-align: center;
-}
 
 p {
     color: #fff;
@@ -44,13 +36,13 @@ th {
 
 a {
     display: block;
-    width: 15%;
+    width: 12rem;
     margin-bottom: 2.5vh;
     background-color: #4CAF50;
     color: white;
     text-align: center;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: bolder;
     line-height: 2vh;
     border-radius: 5px;
     padding: 2vh .5vh;

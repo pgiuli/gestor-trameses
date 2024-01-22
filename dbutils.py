@@ -47,7 +47,8 @@ while True:
             user = input('Usuari: ')
             password = input('Contrasenya: ')
             displayname = input('Nom: ')
-            db.add_user(user, password, displayname)
+            admin = input('Administrador (1/0): ')
+            db.add_user(user, password, displayname, admin)
         case '8':
             user = input('Usuari: ')
             db.delete_user(user)

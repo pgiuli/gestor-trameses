@@ -41,6 +41,15 @@ def enviament():
         options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks)
         return render_template('enviament.html', options=options, userlist=userlist)
 
+#THIS IS ALL WRONG I WANT TO DIE
+qualifs = {
+    0: 'NQ',
+    1: 'NA',
+    2: 'AS',
+    3: 'AN',
+    4: 'AE'
+    }
+
 @website.route('/estat')
 def estat():
     tasks = db.get_tasks()
@@ -52,7 +61,10 @@ def estat():
         for task in tasks:
             submitted_tasks = db.get_submitted_tasks(user[0])
             if task[0] in [t[0] for t in submitted_tasks]:
-                user_status[task[1]] = "✅"  # Green emoji for submitted task
+                grade = db.get_grade(user[0], task[0])
+                #replace grade with qualification
+                grade = qualifs[int(grade)]
+                user_status[task[1]] = f"✅ - {grade}"  # Green emoji for submitted task
             else:
                 user_status[task[1]] = "❌"  # Red emoji for not submitted task
         user_task_status.append(user_status)
@@ -73,6 +85,33 @@ def consulta():
         password = request.form.get('password')
         status, code = db.get_submission(user, password, task)
         return render_template('consulta_result.html', status=status, code=code)
+
+@website.route('/grade', methods=['GET', 'POST']) 
+def grade():
+    if request.method == 'GET':
+        tasks = db.get_tasks()
+        users = db.get_users()
+        admins = db.get_admin_users()
+        userlist = ''.join(f'<option value="{user[0]}">{user[2]}</option>' for user in users)
+        options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks)
+        adminlist = ''.join(f'<option value="{user[0]}">{user[2]}</option>' for user in admins)
+        return render_template('grade_form.html', options=options, userlist=userlist, adminlist=adminlist, status='')
+    else:
+        user = request.form.get('user')
+        task = request.form.get('task')
+        grade = request.form.get('grade')
+        adminuser = request.form.get('adminuser')
+        password = request.form.get('password')
+        status = db.grade_submission(user, task, grade, adminuser, password)
+        statustag = f"<h3>Estat de la petició: {status}</h3>"
+        #Show form again
+        tasks = db.get_tasks()
+        users = db.get_users()
+        userlist = ''.join(f'<option value="{user[0]}">{user[2]}</option>' for user in users)
+        options = ''.join(f'<option value="{task[0]}">{task[1]}</option>' for task in tasks)
+        adminlist = ''.join(f'<option value="{user[0]}">{user[2]}</option>' for user in users if user[3])
+        return render_template('grade_form.html', options=options, userlist=userlist, adminlist=adminlist, statustag=statustag)
+
 
 @website.route('/')
 def index():

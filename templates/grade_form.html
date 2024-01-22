@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Trameses - Giuli</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    </head>
+    <body>
+        <h1>Gestor de trameses de Programació i Robòtica</h1>
+        <h2>Qualifica una Tramesa</h2>
+        <h2 class="warning">Sistema en proves: no representatiu de l'interfície final.</h2>
+        {{statustag|safe}}
+        <form method="POST" enctype="multipart/form-data">
+            Usuari: <select name="user">
+                {{ userlist|safe }}
+            </select><br>
+            Tasca: <select name="task">
+                {{ options|safe }}
+            </select><br>
+            Qualificació: <select name="grade">
+                <option value="0">NQ</option>
+                <option value="1">NA</option>
+                <option value="2">AS</option>
+                <option value="3">AN</option>
+                <option value="4">AE</option>
+            </select><br>
+            Administrador: <select name="adminuser">
+                {{ adminlist|safe }}
+            </select><br>
+            Contrasenya: <input type="password" name="password"><br>
+            </select><br>
+
+            <input class="button" type="submit" value="Qualifica">
+        </form>
+        <a href="/..">Torna</a>
+    </body>
+</html>
