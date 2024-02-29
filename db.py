@@ -110,6 +110,13 @@ def delete_submission(user, taskid):
     conn.commit()
     conn.close()
 
+def reset_task_grades(taskid):
+    conn = sqlite3.connect('trameses.db')
+    c = conn.cursor()
+    c.execute("UPDATE trameses SET grade=0 WHERE taskid=?", (taskid,))
+    conn.commit()
+    conn.close()
+
 def get_tasks():
     conn = sqlite3.connect('trameses.db')
     c = conn.cursor()

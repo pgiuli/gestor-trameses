@@ -8,11 +8,22 @@ website = Flask(__name__)
 # Set max file size
 website.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
 
+closed_tasks = ["inici", "funcions1", "funcions2"]
+
 @website.route('/enviament', methods=['GET', 'POST'])
 def enviament():
     if request.method == 'POST':
         user = request.form.get('user')
         task = request.form.get('task')
+        if task in closed_tasks:
+            return '''
+            <head>
+            <title>Tramesa</title>
+            <link rel="stylesheet" type="text/css" href="/static/styles.css">
+            </head>
+            <h1>Estat de la tramesa: Aquesta tramesa està tancada</h1>
+            <a href="/">Torna</a>
+            '''
         password = request.form.get('password') 
         # Handle file upload
         code_file = request.files['code']
